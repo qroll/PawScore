@@ -22,7 +22,7 @@ export interface AnimalAttributes {
   dewormed: boolean;
   sterilized: boolean;
   adoption_fee: number;
-  intake_date: Date;
+  intake_date: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -51,7 +51,7 @@ export class AnimalModel extends Model<AnimalAttributes, AnimalCreationAttribute
   public dewormed!: boolean | null;
   public sterilized!: boolean | null;
   public adoption_fee!: number | null;
-  public intake_date!: Date;
+  public intake_date!: string;
   public readonly created_at!: Date;
   public readonly updated_at!: Date;
 
