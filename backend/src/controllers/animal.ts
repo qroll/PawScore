@@ -1,14 +1,18 @@
-import express from "express";
-import { AnimalModel } from "../models/animal";
+import { BadRequestError, Controller, Get } from 'routing-controllers';
+import { AnimalAttributes, AnimalModel } from "../models/animal";
 
-class AnimalController {
-  async getAll(req: express.Request, res: express.Response) {
-    try {
-      const animals = await AnimalModel.findAll();
-      res.json({ status: "success", data: animals });
-    } catch (err) {
-      res.status(500).json({ status: "failure", message: "Failed to retrieve animals" });
-    }
+@Controller('/api/animal')
+export class AnimalController {
+  @Get('/')
+  async getAll(): Promise<AnimalAttributes[]> {
+    const animals = await AnimalModel.findAll();
+    return animals.map(v => v.get());
+  }
+
+  // example of how errors will be caught and handled by middleware with the appropriate status code and message
+  @Get('/error')
+  async get(): Promise<void> {
+    throw new BadRequestError("Example error")
   }
 }
 
